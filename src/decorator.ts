@@ -11,11 +11,10 @@ export class LinkHighlighterDecorator extends TerminalDecorator {
     }
 
     attach (terminal: TerminalTabComponent): void {
-        return
         terminal.contentUpdated$
             .throttle(() => Observable.from([500]))
             .subscribe(() => {
-                //this.insertLinks(terminal.hterm.screen_)
+                this.insertLinks(terminal.hterm.screen_)
             })
     }
 
