@@ -1,4 +1,3 @@
-import { Observable } from 'rxjs'
 import { Inject, Injectable } from '@angular/core'
 import { TerminalDecorator, TerminalTabComponent } from 'terminus-terminal'
 
@@ -12,7 +11,7 @@ export class LinkHighlighterDecorator extends TerminalDecorator {
 
     attach (terminal: TerminalTabComponent): void {
         terminal.contentUpdated$
-            .throttle(() => Observable.from([500]))
+            .debounceTime(500)
             .subscribe(() => {
                 this.insertLinks(terminal.hterm.screen_)
             })
