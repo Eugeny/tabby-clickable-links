@@ -1,12 +1,14 @@
 {
   "name": "terminus-clickable-links",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "Makes URLs and file paths clickable in Terminus",
+  "keywords": "terminus-plugin",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "scripts": {
     "build": "webpack --progress --color",
-    "watch": "webpack --progress --color --watch"
+    "watch": "webpack --progress --color --watch",
+    "prepublishOnly": "npm run build"
   },
   "files": [
     "dist"
@@ -15,6 +17,8 @@
   "license": "MIT",
   "devDependencies": {
     "@angular/core": "^4.1.3",
+    "@types/electron": "^1.6.10",
+    "@types/webpack-env": "^1.13.0",
     "awesome-typescript-loader": "^3.1.2",
     "electron": "^1.6.11",
     "rxjs": "^5.4.0",
