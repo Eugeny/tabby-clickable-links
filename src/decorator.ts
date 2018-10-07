@@ -1,3 +1,4 @@
+import { debounceTime } from 'rxjs/operators'
 import { Inject, Injectable } from '@angular/core'
 import { TerminalDecorator, TerminalTabComponent } from 'terminus-terminal'
 
@@ -10,11 +11,11 @@ export class LinkHighlighterDecorator extends TerminalDecorator {
     }
 
     attach (terminal: TerminalTabComponent): void {
-        terminal.contentUpdated$
-            .debounceTime(500)
-            .subscribe(() => {
-                this.insertLinks(terminal.hterm.screen_)
-            })
+        terminal.contentUpdated$.pipe(
+            debounceTime(500)
+        ).subscribe(() => {
+            this.insertLinks(terminal.hterm.screen_)
+        })
     }
 
     insertLinks (screen) {
