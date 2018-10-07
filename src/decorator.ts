@@ -11,10 +11,13 @@ export class LinkHighlighterDecorator extends TerminalDecorator {
     }
 
     attach (terminal: TerminalTabComponent): void {
-        terminal.contentUpdated$.pipe(
+        terminal.frontend.contentUpdated$.pipe(
             debounceTime(500)
         ).subscribe(() => {
-            this.insertLinks(terminal.hterm.screen_)
+            if (!terminal.frontend.term) {
+                return
+            }
+            this.insertLinks(terminal.frontend.term.screen_)
         })
     }
 

@@ -1,6 +1,7 @@
 import * as fs from 'fs'
 const untildify = require('untildify')
 import { Injectable } from '@angular/core'
+import { ToastrService } from 'ngx-toastr'
 import { ElectronService } from 'terminus-core'
 
 import { LinkHandler } from './api'
@@ -19,10 +20,13 @@ export class URLHandler extends LinkHandler {
 }
 
 @Injectable()
-export class FileHandler extends LinkHandler {
+export class UnixFileHandler extends LinkHandler {
     regex = '[~/][^\\s,;\'"]+'
 
-    constructor (private electron: ElectronService) {
+    constructor (
+        private toastr: ToastrService,
+        private electron: ElectronService,
+    ) {
         super()
     }
 
@@ -30,11 +34,36 @@ export class FileHandler extends LinkHandler {
         return untildify(uri)
     }
 
-    verify (uri: string) {
-        return fs.existsSync(uri)
+    handle (uri: string) {
+        if (!fs.existsSync(uri)) {
+            this.toastr.error('This path does not exist')
+            return
+        }
+        this.electron.shell.openExternal('file://' + uri)
+    }
+}
+
+
+@Injectable()
+export class WindowsFileHandler extends LinkHandler {
+    regex = '\\w:[^\\s,;/\'"]+'
+
+    constructor (
+        private toastr: ToastrService,
+        private electron: ElectronService,
+    ) {
+        super()
+    }
+
+    convert (uri: string): string {
+        return untildify(uri)
     }
 
     handle (uri: string) {
+        if (!fs.existsSync(uri)) {
+            this.toastr.error('This path does not exist')
+            return
+        }
         this.electron.shell.openExternal('file://' + uri)
     }
 }

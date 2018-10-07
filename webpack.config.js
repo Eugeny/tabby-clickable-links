@@ -30,6 +30,7 @@ module.exports = {
   externals: [
     'fs',
     'untildify',
+    'ngx-toastr',
     /^rxjs/,
     /^@angular/,
     /^@ng-bootstrap/,

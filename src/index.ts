@@ -4,15 +4,20 @@
 */
 
 import { NgModule } from '@angular/core'
+import { ToastrModule } from 'ngx-toastr'
 import { TerminalDecorator } from 'terminus-terminal'
 
 import { LinkHandler } from './api'
-import { FileHandler, URLHandler } from './handlers'
+import { UnixFileHandler, WindowsFileHandler, URLHandler } from './handlers'
 import { LinkHighlighterDecorator } from './decorator'
 
 @NgModule({
+    imports: [
+        ToastrModule,
+    ],
     providers: [
-        { provide: LinkHandler, useClass: FileHandler, multi: true },
+        { provide: LinkHandler, useClass: UnixFileHandler, multi: true },
+        { provide: LinkHandler, useClass: WindowsFileHandler, multi: true },
         { provide: LinkHandler, useClass: URLHandler, multi: true },
         { provide: TerminalDecorator, useClass: LinkHighlighterDecorator, multi: true },
     ],
