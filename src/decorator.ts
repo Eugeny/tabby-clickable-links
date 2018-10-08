@@ -14,10 +14,10 @@ export class LinkHighlighterDecorator extends TerminalDecorator {
         terminal.frontend.contentUpdated$.pipe(
             debounceTime(500)
         ).subscribe(() => {
-            if (!terminal.frontend.term) {
+            if (!(terminal.frontend as any).term) {
                 return
             }
-            this.insertLinks(terminal.frontend.term.screen_)
+            this.insertLinks((terminal.frontend as any).term.screen_)
         })
     }
 
