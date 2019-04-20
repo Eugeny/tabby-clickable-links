@@ -23,16 +23,17 @@
     "@angular/forms": "^6.0.7",
     "@angular/platform-browser": "^6.0.7",
     "@ng-bootstrap/ng-bootstrap": "^2.2.0",
-    "@types/electron": "^1.6.10",
     "@types/webpack-env": "^1.13.0",
     "awesome-typescript-loader": "^3.1.2",
-    "electron": "^1.6.11",
+    "electron": "4.0.5",
+    "ng2-dnd": "5.0.2",
     "ngx-toastr": "^8.8.0",
-    "rxjs": "^6.2.1",
-    "terminus-core": "^1.0.0-alpha.48",
-    "terminus-terminal": "^1.0.0-alpha.55",
-    "typescript": "^2.9.2",
-    "webpack": "^2.3.3"
+    "rxjs": "^6.4.0",
+    "terminus-core": "^1.0.73-c4-ga7d62b0",
+    "terminus-terminal": "^1.0.73-c4-ga7d62b0",
+    "typescript": "^3.1.3",
+    "webpack": "^4.27.1",
+    "webpack-cli": "^3.1.2"
   },
   "peerDependencies": {
     "@angular/core": "^4.0.1"
