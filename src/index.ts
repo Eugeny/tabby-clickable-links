@@ -9,17 +9,18 @@ import { TerminalDecorator } from 'terminus-terminal'
 
 import { LinkHandler } from './api'
 import { UnixFileHandler, WindowsFileHandler, URLHandler } from './handlers'
-import { LinkHighlighterDecorator } from './decorator'
+import { LinkHighlighterDecorator, HTermLinkHighlighterDecorator } from './decorator'
 
 @NgModule({
     imports: [
         ToastrModule,
     ],
     providers: [
+        { provide: LinkHandler, useClass: URLHandler, multi: true },
         { provide: LinkHandler, useClass: UnixFileHandler, multi: true },
         { provide: LinkHandler, useClass: WindowsFileHandler, multi: true },
-        { provide: LinkHandler, useClass: URLHandler, multi: true },
         { provide: TerminalDecorator, useClass: LinkHighlighterDecorator, multi: true },
+        { provide: TerminalDecorator, useClass: HTermLinkHighlighterDecorator, multi: true },
     ],
 })
 export default class LinkHighlighterModule { }

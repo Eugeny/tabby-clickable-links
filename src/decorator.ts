@@ -11,6 +11,40 @@ export class LinkHighlighterDecorator extends TerminalDecorator {
     }
 
     attach (terminal: TerminalTabComponent): void {
+        if (!(terminal.frontend as any).xterm) {
+            // not hterm
+            return
+        }
+        for (let handler of this.handlers) {
+            (terminal.frontend as any).xterm.registerLinkMatcher(
+                handler.regex,
+                (_, link: string) => {
+                    let uri = handler.convert(link)
+                    handler.handle(uri)
+                },
+                {
+                    priority: handler.priority,
+                    validationCallback: (uri: string, callback: (isValid: boolean) => void) => {
+                        callback(handler.verify(uri))
+                    }
+                }
+            )
+        }
+    }
+}
+
+
+@Injectable()
+export class HTermLinkHighlighterDecorator extends TerminalDecorator {
+    constructor (@Inject(LinkHandler) private handlers: LinkHandler[]) {
+        super()
+    }
+
+    attach (terminal: TerminalTabComponent): void {
+        if (!(terminal.frontend as any).term) {
+            // not hterm
+            return
+        }
         terminal.frontend.contentUpdated$.pipe(
             debounceTime(500)
         ).subscribe(() => {
