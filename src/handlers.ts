@@ -8,7 +8,9 @@ import { LinkHandler } from './api'
 
 @Injectable()
 export class URLHandler extends LinkHandler {
-    regex = 'http(s)?://[^\\s;\'"]+[^,;\\s]'
+    // From https://daringfireball.net/2010/07/improved_regex_for_matching_urls
+    // See : https://stackoverflow.com/questions/6927719/url-regex-does-not-work-in-javascript
+    regex = '\b((?:[a-z][\w-]+:(?:\/{1,3}|[a-z0-9%])|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:\'".,<>?«»“”‘’]))'
 
     constructor (private electron: ElectronService) {
         super()
