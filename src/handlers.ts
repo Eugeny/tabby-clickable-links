@@ -25,7 +25,7 @@ export class URLHandler extends LinkHandler {
 
 @Injectable()
 export class UnixFileHandler extends LinkHandler {
-    regex = /[~/][^\\s,;\'"]+/
+    regex = /[~/][^\s,;'"]+/
 
     constructor (
         private toastr: ToastrService,
