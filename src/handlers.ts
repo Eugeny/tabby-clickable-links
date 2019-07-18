@@ -25,7 +25,8 @@ export class URLHandler extends LinkHandler {
 
 @Injectable()
 export class UnixFileHandler extends LinkHandler {
-    regex = /[~/][^\s,;'"]+/
+    // Only absolute and home paths
+    regex = /(\/|~)+(\.|)[\w\/-]+(\.[\w]+|)/
 
     constructor (
         private toastr: ToastrService,
@@ -50,7 +51,8 @@ export class UnixFileHandler extends LinkHandler {
 
 @Injectable()
 export class WindowsFileHandler extends LinkHandler {
-    regex = /\\w:[^\\s,;/\'"]+/
+    // Only absolute and home paths
+    regex = /(([a-zA-Z]:|\\|~)\\[\w\-()\\\.]+|"([a-zA-Z]:|\\)\\[\w\s\-()\\\.]+")/
 
     constructor (
         private toastr: ToastrService,
@@ -60,7 +62,8 @@ export class WindowsFileHandler extends LinkHandler {
     }
 
     convert (uri: string): string {
-        return untildify(uri)
+        const sanitizedUri = uri.replace(/"/g, '')
+        return untildify(sanitizedUri)
     }
 
     handle (uri: string) {
