@@ -1,9 +1,10 @@
 const path = require('path')
+const webpack = require('webpack')
 
 module.exports = {
   target: 'node',
   entry: 'src/index.ts',
-  devtool: 'eval-source-map',
+  mode: 'development',
   context: __dirname,
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -27,6 +28,12 @@ module.exports = {
       },
     ]
   },
+  plugins: [
+    new webpack.SourceMapDevToolPlugin({
+      exclude: [/node_modules/, /vendor/],
+      filename: '[file].map',
+    }),
+  ],
   externals: [
     'fs',
     'untildify',
