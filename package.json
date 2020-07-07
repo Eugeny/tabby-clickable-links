@@ -25,7 +25,7 @@
     "@ng-bootstrap/ng-bootstrap": "^2.2.0",
     "@types/webpack-env": "^1.13.0",
     "awesome-typescript-loader": "^3.1.2",
-    "electron": "4.0.5",
+    "electron": "7.2.4",
     "ng2-dnd": "5.0.2",
     "ngx-toastr": "^8.8.0",
     "rxjs": "^6.4.0",
