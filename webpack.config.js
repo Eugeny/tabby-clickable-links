@@ -35,8 +35,9 @@ module.exports = {
     }),
   ],
   externals: [
-    'fs',
+    'fs/promises',
     'untildify',
+    'path',
     'ngx-toastr',
     /^rxjs/,
     /^@angular/,

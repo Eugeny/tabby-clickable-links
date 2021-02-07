@@ -1,8 +1,10 @@
-import * as fs from 'fs'
-const untildify = require('untildify')
+import * as fs from 'fs/promises'
+import * as path from 'path'
+import * as untildify from 'untildify'
 import { Injectable } from '@angular/core'
 import { ToastrService } from 'ngx-toastr'
 import { ElectronService } from 'terminus-core'
+import { BaseTerminalTabComponent } from 'terminus-terminal'
 
 import { LinkHandler } from './api'
 
@@ -23,54 +25,68 @@ export class URLHandler extends LinkHandler {
     }
 }
 
-@Injectable()
-export class UnixFileHandler extends LinkHandler {
-    // Only absolute and home paths
-    regex = /(\/|~)+(\.|)[\w\/-]+(\.[\w]+|)/
-
+export class BaseFileHandler extends LinkHandler {
     constructor (
-        private toastr: ToastrService,
-        private electron: ElectronService,
+        protected toastr: ToastrService,
+        protected electron: ElectronService,
     ) {
         super()
     }
 
-    convert (uri: string): string {
-        return untildify(uri)
+    handle (uri: string) {
+        this.electron.shell.openExternal('file://' + uri).catch(err => {
+            this.toastr.error(err.toString())
+        })
     }
 
-    handle (uri: string) {
-        if (!fs.existsSync(uri)) {
-            this.toastr.error('This path does not exist')
-            return
+    async verify (uri: string): Promise<boolean> {
+        try {
+            await fs.access(uri)
+            return true
+        } catch {
+            return false
         }
-        this.electron.shell.openExternal('file://' + uri)
+    }
+
+    async convert (uri: string, tab?: BaseTerminalTabComponent): Promise<string> {
+        let p = untildify(uri)
+        if (!path.isAbsolute(p) && tab) {
+            const cwd = await tab.session.getWorkingDirectory()
+            if (cwd) {
+                p = path.resolve(cwd, p)
+            }
+        }
+        return p
+    }
+}
+
+@Injectable()
+export class UnixFileHandler extends BaseFileHandler {
+    regex = /\/?([\w.~-]+)(\/[\w.~-]+)+/
+
+    constructor (
+        protected toastr: ToastrService,
+        protected electron: ElectronService,
+    ) {
+        super(toastr, electron)
     }
 }
 
 
 @Injectable()
-export class WindowsFileHandler extends LinkHandler {
+export class WindowsFileHandler extends BaseFileHandler {
     // Only absolute and home paths
     regex = /(([a-zA-Z]:|\\|~)\\[\w\-()\\\.]+|"([a-zA-Z]:|\\)\\[\w\s\-()\\\.]+")/
 
     constructor (
-        private toastr: ToastrService,
-        private electron: ElectronService,
+        protected toastr: ToastrService,
+        protected electron: ElectronService,
     ) {
-        super()
+        super(toastr, electron)
     }
 
-    convert (uri: string): string {
+    convert (uri: string, tab?: BaseTerminalTabComponent): Promise<string> {
         const sanitizedUri = uri.replace(/"/g, '')
-        return untildify(sanitizedUri)
-    }
-
-    handle (uri: string) {
-        if (!fs.existsSync(uri)) {
-            this.toastr.error('This path does not exist')
-            return
-        }
-        this.electron.shell.openExternal('file://' + uri)
+        return super.convert(sanitizedUri, tab)
     }
 }
