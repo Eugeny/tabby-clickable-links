@@ -1,20 +1,22 @@
-/*
-    This plugin is based on Hyperterm Hyperlinks:
-    https://github.com/zeit/hyperlinks/blob/master/index.js
-*/
-
 import { NgModule } from '@angular/core'
+import { CommonModule } from '@angular/common'
+import { FormsModule } from '@angular/forms'
 import { ToastrModule } from 'ngx-toastr'
 import { ConfigProvider } from 'terminus-core'
 import { TerminalDecorator } from 'terminus-terminal'
+import { SettingsTabProvider } from 'terminus-settings'
 
 import { LinkHandler } from './api'
 import { UnixFileHandler, WindowsFileHandler, URLHandler } from './handlers'
 import { LinkHighlighterDecorator } from './decorator'
 import { ClickableLinksConfigProvider } from './config'
+import { ClickableLinksSettingsTabComponent } from './components/clickableLinksSettingsTab.component'
+import { ClickableLinksSettingsTabProvider } from './settings'
 
 @NgModule({
     imports: [
+        CommonModule,
+        FormsModule,
         ToastrModule,
     ],
     providers: [
@@ -23,6 +25,13 @@ import { ClickableLinksConfigProvider } from './config'
         { provide: LinkHandler, useClass: WindowsFileHandler, multi: true },
         { provide: TerminalDecorator, useClass: LinkHighlighterDecorator, multi: true },
         { provide: ConfigProvider, useClass: ClickableLinksConfigProvider, multi: true },
+        { provide: SettingsTabProvider, useClass: ClickableLinksSettingsTabProvider, multi: true },
+    ],
+    entryComponents: [
+        ClickableLinksSettingsTabComponent,
+    ],
+    declarations: [
+        ClickableLinksSettingsTabComponent,
     ],
 })
 export default class LinkHighlighterModule { }

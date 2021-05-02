@@ -1,0 +1,16 @@
+h3.mb-3 Clickable Links
+
+.form-line
+    .header
+        .title Modifier key
+        .description When enabled, links are only clickable while holding this key
+
+    select.form-control(
+        [(ngModel)]='config.store.clickableLinks.modifier',
+        (ngModelChange)='config.save()',
+    )
+        option([value]='null') None
+        option(value='ctrlKey') Ctrl
+        option(value='altKey') Alt / Option
+        option(value='shiftKey') Shift
+        option(value='metaKey') Windows / Command
