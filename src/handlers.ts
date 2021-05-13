@@ -51,7 +51,7 @@ export class BaseFileHandler extends LinkHandler {
     async convert (uri: string, tab?: BaseTerminalTabComponent): Promise<string> {
         let p = untildify(uri)
         if (!path.isAbsolute(p) && tab) {
-            const cwd = await tab.session.getWorkingDirectory()
+            const cwd = await tab.session?.getWorkingDirectory()
             if (cwd) {
                 p = path.resolve(cwd, p)
             }
@@ -62,7 +62,8 @@ export class BaseFileHandler extends LinkHandler {
 
 @Injectable()
 export class UnixFileHandler extends BaseFileHandler {
-    regex = /\/?([\w.~-]+)(\/[\w.~-]+)+/
+    // Only absolute and home paths
+    regex = /[~]?(\/[\w\d.~-]{1,100})+/
 
     constructor (
         protected toastr: ToastrService,
@@ -75,8 +76,7 @@ export class UnixFileHandler extends BaseFileHandler {
 
 @Injectable()
 export class WindowsFileHandler extends BaseFileHandler {
-    // Only absolute and home paths
-    regex = /(([a-zA-Z]:|\\|~)\\[\w\-()\\\.]+|"([a-zA-Z]:|\\)\\[\w\s\-()\\\.]+")/
+    regex = /(([a-zA-Z]:|\\|~)\\[\w\-()\\\.]{1,1024}|"([a-zA-Z]:|\\)\\[\w\s\-()\\\.]{1,1024}")/
 
     constructor (
         protected toastr: ToastrService,
