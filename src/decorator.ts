@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@angular/core'
 import { ConfigService, ElectronService } from 'terminus-core'
-import { TerminalDecorator, TerminalTabComponent } from 'terminus-terminal'
+import { TerminalDecorator, BaseTerminalTabComponent } from 'terminus-terminal'
 
 import { LinkHandler } from './api'
 
@@ -14,7 +14,7 @@ export class LinkHighlighterDecorator extends TerminalDecorator {
         super()
     }
 
-    attach (tab: TerminalTabComponent): void {
+    attach (tab: BaseTerminalTabComponent): void {
         if (!(tab.frontend as any).xterm) {
             // not hterm
             return
