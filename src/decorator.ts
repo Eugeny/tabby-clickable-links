@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@angular/core'
-import { ConfigService, ElectronService } from 'terminus-core'
+import { ConfigService, PlatformService } from 'terminus-core'
 import { TerminalDecorator, BaseTerminalTabComponent } from 'terminus-terminal'
 
 import { LinkHandler } from './api'
@@ -8,7 +8,7 @@ import { LinkHandler } from './api'
 export class LinkHighlighterDecorator extends TerminalDecorator {
     constructor (
         private config: ConfigService,
-        private electron: ElectronService,
+        private platform: PlatformService,
         @Inject(LinkHandler) private handlers: LinkHandler[],
     ) {
         super()
@@ -39,18 +39,18 @@ export class LinkHighlighterDecorator extends TerminalDecorator {
                     },
                     willLinkActivate: (event: MouseEvent, uri: string) => {
                         if (event.button === 2) {
-                            this.electron.Menu.buildFromTemplate([
+                            this.platform.popupContextMenu([
                                 {
                                     click: () => openLink(uri),
                                     label: 'Open',
                                 },
                                 {
                                     click: async () => {
-                                        this.electron.clipboard.writeText(await getLink(uri))
+                                        this.platform.setClipboard({ text: await getLink(uri) })
                                     },
                                     label: 'Copy',
                                 },
-                            ]).popup()
+                            ])
                             return false
                         }
                         return this.willHandleEvent(event)
