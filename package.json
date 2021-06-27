@@ -1,6 +1,6 @@
 {
   "name": "terminus-clickable-links",
-  "version": "3.0.1",
+  "version": "3.1.0",
   "description": "Makes URLs, IPs and file paths clickable in Terminus",
   "keywords": [
     "terminus-plugin"
