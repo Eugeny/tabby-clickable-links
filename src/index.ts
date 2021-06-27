@@ -7,7 +7,7 @@ import { TerminalDecorator } from 'terminus-terminal'
 import { SettingsTabProvider } from 'terminus-settings'
 
 import { LinkHandler } from './api'
-import { UnixFileHandler, WindowsFileHandler, URLHandler } from './handlers'
+import { UnixFileHandler, WindowsFileHandler, URLHandler, IPHandler } from './handlers'
 import { LinkHighlighterDecorator } from './decorator'
 import { ClickableLinksConfigProvider } from './config'
 import { ClickableLinksSettingsTabComponent } from './components/clickableLinksSettingsTab.component'
@@ -21,6 +21,7 @@ import { ClickableLinksSettingsTabProvider } from './settings'
     ],
     providers: [
         { provide: LinkHandler, useClass: URLHandler, multi: true },
+        { provide: LinkHandler, useClass: IPHandler, multi: true },
         { provide: LinkHandler, useClass: UnixFileHandler, multi: true },
         { provide: LinkHandler, useClass: WindowsFileHandler, multi: true },
         { provide: TerminalDecorator, useClass: LinkHighlighterDecorator, multi: true },

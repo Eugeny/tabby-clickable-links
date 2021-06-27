@@ -25,6 +25,21 @@ export class URLHandler extends LinkHandler {
     }
 }
 
+@Injectable()
+export class IPHandler extends LinkHandler {
+    regex = /\b((2[0-4]\d|25[0-5]|[01]?\d\d?)\.){3}(2[0-4]\d|25[0-5]|[01]?\d\d?)/
+
+    priority = 4
+
+    constructor (private platform: PlatformService) {
+        super()
+    }
+
+    handle (uri: string) {
+        this.platform.openExternal(`http://${uri}`)
+    }
+}
+
 export class BaseFileHandler extends LinkHandler {
     constructor (
         protected toastr: ToastrService,
