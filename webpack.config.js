@@ -11,7 +11,7 @@ module.exports = {
     filename: 'index.js',
     pathinfo: true,
     libraryTarget: 'umd',
-    devtoolModuleFilenameTemplate: 'webpack-terminus-clickable-links:///[resource-path]',
+    devtoolModuleFilenameTemplate: 'webpack-tabby-clickable-links:///[resource-path]',
   },
   resolve: {
     modules: ['.', 'src', 'node_modules'].map(x => path.join(__dirname, x)),
@@ -37,12 +37,11 @@ module.exports = {
   ],
   externals: [
     'fs/promises',
-    'untildify',
     'path',
     'ngx-toastr',
     /^rxjs/,
     /^@angular/,
     /^@ng-bootstrap/,
-    /^terminus-/,
+    /^tabby-/,
   ]
 }

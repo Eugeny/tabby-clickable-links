@@ -3511,6 +3511,24 @@ supports-color@^5.3.0, supports-color@^5.5.0:
   dependencies:
     has-flag "^3.0.0"
 
+tabby-core@^1.0.140:
+  version "1.0.144"
+  resolved "https://registry.yarnpkg.com/tabby-core/-/tabby-core-1.0.144.tgz#acfea14040a826b91d65635ace9bbdf16a5df093"
+  integrity sha512-9zXKRo8D7awdENBxP63n4MkP8ZJMq1/8jCF+YRhb24ujamFxjFNPSDSMBBiRWLVrDabjQdO+pcWpk2CJhjlPGA==
+
+tabby-settings@^1.0.140:
+  version "1.0.144"
+  resolved "https://registry.yarnpkg.com/tabby-settings/-/tabby-settings-1.0.144.tgz#3529fe46d3f61dd145291e94aa3da8dc8b9040ae"
+  integrity sha512-oRJKoGc1KREXPLmC7vadKh763JXpvk/lcRUDl2dNUFWGWZLsp8ordXra1w3jfKE0K903i2DrD+62XUZrXgrd9Q==
+
+tabby-terminal@^1.0.140:
+  version "1.0.144"
+  resolved "https://registry.yarnpkg.com/tabby-terminal/-/tabby-terminal-1.0.144.tgz#d1f1ba83494a7c9acfd2f60b8c4a8c869d1c8c8d"
+  integrity sha512-AkJq955Kz9tM58ewEJ634Pz4iSDwLuiw+rZNcHIhPlJm+snOh0x5S0liZSbS+U17xrhVqHJwg8DwghMUTfqkdg==
+  dependencies:
+    hterm-umdjs "1.4.1"
+    opentype.js "^1.3.3"
+
 tapable@^1.0.0, tapable@^1.1.0:
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/tapable/-/tapable-1.1.3.tgz#a1fccc06b58db61fd7a45da2da44f5f3a3e67ba2"
@@ -3528,24 +3546,6 @@ tar@^4:
     mkdirp "^0.5.0"
     safe-buffer "^5.1.2"
     yallist "^3.0.2"
-
-terminus-core@^1.0.140:
-  version "1.0.140"
-  resolved "https://registry.yarnpkg.com/terminus-core/-/terminus-core-1.0.140.tgz#4f1c8f5cdbf6c47bd659407d5f69ae783139d6dd"
-  integrity sha512-Q5A2G8B+Bro2V8b6dL7rfvlpB6F4kLzVlIDxHF5k/7LZzz7PvmKGCJeFO1DbukD5Nh9ORdNaTFUcuAispYOr1Q==
-
-terminus-settings@^1.0.140:
-  version "1.0.140"
-  resolved "https://registry.yarnpkg.com/terminus-settings/-/terminus-settings-1.0.140.tgz#ef44e1abce9d8de86b14f9e460b47300e97924cb"
-  integrity sha512-+rxoZ9ecaksrVn+4OAGDEJZv7kttRHsPwbsxp+yRodeNs0AFiN6eNyf6M8zikbE8ppPCkNNMTLW6oXvF5dywHQ==
-
-terminus-terminal@^1.0.140:
-  version "1.0.140"
-  resolved "https://registry.yarnpkg.com/terminus-terminal/-/terminus-terminal-1.0.140.tgz#eb19fae27357760a6aa5ded5c5e4edbb6deb726d"
-  integrity sha512-fk5Ee/+AFOWwlezHjls53bneKEhWKi/ceLxC1U72piZoeoql2d4eO/+t1Kl+3XB70PCiIMb4aKZGn5y+p107aw==
-  dependencies:
-    hterm-umdjs "1.4.1"
-    opentype.js "^1.3.3"
 
 terser-webpack-plugin@^1.1.0:
   version "1.2.3"

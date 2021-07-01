@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@angular/core'
-import { ConfigService, PlatformService } from 'terminus-core'
-import { TerminalDecorator, BaseTerminalTabComponent } from 'terminus-terminal'
+import { ConfigService, PlatformService } from 'tabby-core'
+import { TerminalDecorator, BaseTerminalTabComponent } from 'tabby-terminal'
 
 import { LinkHandler } from './api'
 

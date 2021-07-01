@@ -1,5 +1,5 @@
 import { Component } from '@angular/core'
-import { ConfigService } from 'terminus-core'
+import { ConfigService } from 'tabby-core'
 
 @Component({
     template: require('./clickableLinksSettingsTab.component.pug'),

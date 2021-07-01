@@ -1,4 +1,4 @@
-import { BaseTerminalTabComponent } from 'terminus-terminal'
+import { BaseTerminalTabComponent } from 'tabby-terminal'
 
 export abstract class LinkHandler {
     regex: RegExp
