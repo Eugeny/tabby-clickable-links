@@ -4,7 +4,7 @@ const webpack = require('webpack')
 module.exports = {
   target: 'node',
   entry: 'src/index.ts',
-  mode: 'development',
+  mode: 'production',
   context: __dirname,
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -21,9 +21,9 @@ module.exports = {
     rules: [
       {
         test: /\.ts$/,
-        loader: 'awesome-typescript-loader',
+        loader: 'ts-loader',
         query: {
-          configFileName: path.resolve(__dirname, 'tsconfig.json'),
+          configFile: path.resolve(__dirname, 'tsconfig.json'),
         }
       },
       { test: /\.pug$/, use: ['apply-loader', 'pug-loader'] },
