@@ -1,3 +1,7 @@
+# Archived
+
+This plugin is a part of Tabby itself now.
+
 # Clickable Links
 
 #### For the Tabby terminal
